@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-outfit: "Outfit", sans-serif;
+  --color-terracotta: #B5623A;
+  --color-terracotta-light: #FDF6F0;
+  --color-terracotta-border: #E8CFC2;
+  --color-terracotta-hover: #9E5330;
+}
+
+@layer base {
+  *:focus-visible {
+    @apply outline-none ring-2 ring-[#B5623A] ring-offset-2;
+  }
+}
+
+html, body {
+  @apply font-outfit bg-[#F8F8F8] text-[#141414] antialiased selection:bg-[#141414] selection:text-white;
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}

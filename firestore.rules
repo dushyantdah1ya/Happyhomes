@@ -1,0 +1,16 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global safety net: default-deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Internal system records (e.g. /system/connection_check) are completely
+    // inaccessible to direct client SDK requests. All access must be mediated
+    // through the authorized server-side Firebase Admin SDK.
+    match /system/{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

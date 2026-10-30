@@ -1,0 +1,8 @@
+{
+  "name": "Happy Homes",
+  "description": "Direct architectural builders and developers in Jaipur. Developing turnkey luxury villas, boutique independent floors, and residential plots in Jagatpura, Kusum Vihar & Vidhyadhar Nagar.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

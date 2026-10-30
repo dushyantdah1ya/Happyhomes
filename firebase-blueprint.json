@@ -1,0 +1,154 @@
+{
+  "entities": {
+    "ConnectionCheck": {
+      "title": "ConnectionCheck",
+      "description": "Private server connection verification record",
+      "type": "object",
+      "properties": {
+        "verifiedAt": {
+          "type": "string",
+          "description": "ISO 8601 server timestamp"
+        },
+        "verifiedBy": {
+          "type": "string",
+          "description": "UID of the authorized owner who initiated the check"
+        },
+        "serverTime": {
+          "type": "number",
+          "description": "Unix millisecond server timestamp"
+        }
+      },
+      "required": [
+        "verifiedAt",
+        "verifiedBy",
+        "serverTime"
+      ]
+    },
+    "DevelopmentDraft": {
+      "title": "DevelopmentDraft",
+      "description": "Private working draft of a property development managed by the owner",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "slug": { "type": "string" },
+        "name": { "type": "string" },
+        "type": { "type": "string" },
+        "locality": { "type": "string" },
+        "shortDescription": { "type": "string" },
+        "priceMode": { "type": "string" },
+        "priceAmount": { "type": "number" },
+        "availability": { "type": "string" },
+        "constructionStage": { "type": "string" },
+        "status": { "type": "string" },
+        "version": { "type": "number" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "slug", "name", "type", "locality", "status", "version"]
+    },
+    "DevelopmentPublic": {
+      "title": "DevelopmentPublic",
+      "description": "Published public snapshot of a development for public detail display",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "slug": { "type": "string" },
+        "name": { "type": "string" },
+        "type": { "type": "string" },
+        "locality": { "type": "string" },
+        "shortDescription": { "type": "string" },
+        "priceMode": { "type": "string" },
+        "priceAmount": { "type": "number" },
+        "priceDisplay": { "type": "string" },
+        "availability": { "type": "string" },
+        "constructionStage": { "type": "string" },
+        "publishedAt": { "type": "string" }
+      },
+      "required": ["id", "slug", "name", "type", "locality", "publishedAt"]
+    },
+    "Enquiry": {
+      "title": "Enquiry",
+      "description": "Private consultation enquiry from a prospective client",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "idempotencyKey": { "type": "string" },
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "message": { "type": "string" },
+        "service": { "type": "string" },
+        "locality": { "type": "string" },
+        "developmentId": { "type": "string" },
+        "developmentTitle": { "type": "string" },
+        "developmentSlug": { "type": "string" },
+        "status": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "marketingConsent": { "type": "boolean" },
+        "acknowledgedContact": { "type": "boolean" },
+        "formVersion": { "type": "string" }
+      },
+      "required": ["id", "idempotencyKey", "name", "phone", "service", "status", "createdAt", "acknowledgedContact", "formVersion"]
+    },
+    "RateLimit": {
+      "title": "RateLimit",
+      "description": "Atomic counter for client rate limiting",
+      "type": "object",
+      "properties": {
+        "count": { "type": "number" },
+        "expiresAt": { "type": "string" }
+      },
+      "required": ["count", "expiresAt"]
+    },
+    "BusinessSettings": {
+      "title": "BusinessSettings",
+      "description": "Shared business contact information and social profiles",
+      "type": "object",
+      "properties": {
+        "phone": { "type": "string" },
+        "whatsapp": { "type": "string" },
+        "email": { "type": "string" },
+        "address": { "type": "string" },
+        "directionsUrl": { "type": "string" },
+        "officeHours": { "type": "string" },
+        "socials": {
+          "type": "object",
+          "properties": {
+            "instagram": { "type": "string" },
+            "facebook": { "type": "string" },
+            "linkedin": { "type": "string" },
+            "twitter": { "type": "string" }
+          }
+        },
+        "updatedAt": { "type": "string" },
+        "updatedBy": { "type": "string" }
+      },
+      "required": ["phone", "email", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/system/connection_check": {
+      "schema": "ConnectionCheck",
+      "description": "Private operational connection verification record"
+    },
+    "/system/business_settings": {
+      "schema": "BusinessSettings",
+      "description": "Publicly readable shared business contact details"
+    },
+    "/developments_drafts/{id}": {
+      "schema": "DevelopmentDraft",
+      "description": "Private development working drafts, accessible only via verified owner Admin SDK"
+    },
+    "/developments_public/{slug}": {
+      "schema": "DevelopmentPublic",
+      "description": "Publicly published development snapshots, mediated via server-side SSR"
+    },
+    "/enquiries/{id}": {
+      "schema": "Enquiry",
+      "description": "Private consultation enquiries, accessible only by authorized owner"
+    },
+    "/system/rate_limits/{id}": {
+      "schema": "RateLimit",
+      "description": "Server-side rate limit counters"
+    }
+  }
+}
